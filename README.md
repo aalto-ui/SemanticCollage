@@ -1,4 +1,15 @@
-## SemanticCollage: Enriching Digital Mood Board Design with Semantic Labels
+# SemanticCollage: Enriching Digital Mood Board Design with Semantic Labels
+
+SemanticCollage is a digital mood board tool that attaches semantic labels to images by applying a state-of-the-art semantic labeling algorithm.
+It helps designers to 1) translate vague, visual ideas into search terms; 
+2) make better sense of and communicate their designs; while 
+3) not disrupting their creative flow.
+
+
+## Overview of the System:
+<img src="https://github.com/aalto-ui/SemanticCollage/blob/master/figure/hero.jpg"/>
+SemanticCollage is a semantically enriched digital mood board tool for image collection and interpretation. Blue tools support image and text manipulation; Red tools provide semantic labels.
+
 
 
 ## Getting started:
