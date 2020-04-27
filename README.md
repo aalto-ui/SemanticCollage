@@ -1,6 +1,6 @@
 # SemanticCollage: Enriching Digital Mood Board Design with Semantic Labels
 
-SemanticCollage is a digital mood board tool that attaches semantic labels to images by applying a state-of-the-art semantic labeling algorithm.
+In the [SemanticCollage project](http://dx.doi.org/10.1145/3357236.3395494) (released July 6th 2020) we developed a digital mood board tool that attaches semantic labels to images by applying a state-of-the-art semantic labeling algorithm.
 It helps designers to 1) translate vague, visual ideas into search terms; 
 2) make better sense of and communicate their designs; while 
 3) not disrupting their creative flow.
@@ -31,6 +31,18 @@ SemanticCollage is a semantically enriched digital mood board tool for image col
 
 ## Python version
 2.7
+
+## Citation
+```bash
+@inproceedings{SemanticCollage,
+  title={SemanticCollage: Enriching Digital Mood Board Design with Semantic Labels},
+  author={Koch, Janin and Taffin, Nicolas and Lucero, Andr{\'e}s and Mackay, Wendy},
+  booktitle={Proceedings of the Designing Interactive Systems Conference 2020 (DIS '20)},
+  year={2020},
+  organization={ACM}
+}
+```
+
 
 
 ## License
