@@ -1,6 +1,6 @@
 # SemanticCollage: Enriching Digital Mood Board Design with Semantic Labels
 
-In the [SemanticCollage project](http://dx.doi.org/10.1145/3357236.3395494) (released July 6th 2020) we developed a digital mood board tool that attaches semantic labels to images by applying a state-of-the-art semantic labeling algorithm.
+In the [SemanticCollage research project](http://dx.doi.org/10.1145/3357236.3395494) (released July 6th 2020) we developed a digital mood board tool that attaches semantic labels to images by applying a state-of-the-art semantic labeling algorithm.
 It helps designers to 1) translate vague, visual ideas into search terms; 
 2) make better sense of and communicate their designs; while 
 3) not disrupting their creative flow.
