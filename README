@@ -1,0 +1,16 @@
+Setup:
+- Python 2.7
+- Postgres DB
+
+
+DB:
+1) setup Postgres DB -- db name: semanticcollage
+2) create tables using the statements in the DB folder
+3) make sure the user 'research' has read/write privilages
+(GRANT ALL PRIVILEGES ON DATABASE "semanticcollage" to research;)
+
+System:
+1) install requirements: see requirements.tex
+2) add a folder 'images' in the static folder
+3) start the system: python main.py
+4) connect to: http://localhost:8080

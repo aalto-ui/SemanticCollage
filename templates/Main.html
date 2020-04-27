@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SemanticCollage Tool</title>
+    <link rel="stylesheet" href="static/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="static/css/wheelmenu.css">
+    <link rel="stylesheet" href="static/css/cropper.css">
+    <link rel="stylesheet" href="static/css/jqcloud.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- our css last -->
+    <link rel="stylesheet" href="static/css/draganddrop.css">
+</head>
+<body id="body_background">
+<div id="moodboardArea" class="moodboard-area">
+    <div class="tab">
+        <div class="tablinks search" onclick="openTab(event, 'SearchTab')" id="defaultOpen"><span
+                class="label">Compose</span>
+        </div>
+        <!--
+                <div class="tablinks" onclick="openTab(event, 'ComposeTab')"><span class="label">Compose</span></div>
+        -->
+        <div class="tablinks reflect" id="rationalTabLabel" onclick="openTab(event, 'RationaleTab')"><span class="label">Reflect</span></div>
+    </div>
+    <div id="SearchTab" class="tabcontent search-tab">
+        <div class="left-bar search_area">
+            <div class="searchBar">
+                <div contenteditable="true" id="search" class="search-zone idle">Keywords, pictures…</div>
+                <a href="#" class="systemStart"><i class="searchIcon fas fa-search"></i></a>
+                <div class="optionToggle">Options</div>
+                <div class="searchOptions">
+                    <div class="closeParent">×</div>
+                    <!--<h2 class="hidden">Search engine</h2>-->
+                    <div class="engineOption" class="hidden">
+                        <input type="radio" name="engine" id="duck" value="duck" class="hidden" checked="checked"><label
+                            for="duck" class="hidden">DuckDuckGo</label>
+                        <!--<br/>-->
+
+                        <!--  <input type="radio" name="engine" id="google" value="google">&nbsp;<label
+                              for="google">Google</label><br/>
+                          <input type="radio" name="engine" id="bing" value="bing">&nbsp;<label
+                              for="bing">Bing</label><br/>
+  -->
+                        <div class="conditions" class="hidden">
+                            <button type="button" class="hidden" class="conditionE-btn" id="conditionExplore1">Semantics</button>
+                            <button type="button"  class="hidden" class="conditionE-btn" id="conditionExplore2">No Semantics</button>
+                        </div>
+
+                        <div class="inspector">
+                            <h2>Keywords</h2>
+                            <ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="searchHistory" class="search-history">
+                    <div class="scrollable-container">
+                        <!--<a class="history-word" href="">Word</a>-->
+                    </div>
+                </div>
+            </div>
+            <div class="searchResults" id="imgGallery">
+            </div>
+        </div>
+        <div id="collageArea" class="collage-area">
+            <div id="moodboard" class="moodboard_canvas">
+            </div>
+            <div class="margin">
+                <div class="upload-container">
+                    <form class="box" method="post" action="/upload_image" enctype="multipart/form-data"
+                          id="uploadForm">
+                        <div class="box__input">
+                            <!--<input class="box__file" type="file" name="files[]" id="file"
+                                   data-multiple-caption="{count} files selected" multiple/>-->
+                            <label for="file"><strong>Upload</strong><span
+                                    class="box__dragndrop">your own<br>images…</span></label>
+                            <button class="box__button" type="submit">Upload</button>
+                        </div>
+                        <div class="box__uploading">Uploading</div>
+                        <div class="box__success">Done!</div>
+                        <div class="box__error">Error! <span></span>.</div>
+                    </form>
+                </div>
+                <h2 id="stackLabel">Possible Images</h2>
+                <div id="stack" class="mood-stack">
+                    <div class="scrollable-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+        <div id="ComposeTab" class="tabcontent compose-tab">
+            <div class="left-bar palette_area">
+            </div>
+        </div>
+    -->
+    <div id="RationaleTab" class="tabcontent rationale-tab">
+        <div class="left-bar texttool_area">
+           
+            <div class="tool semantic">
+                <div class="switch semantic">
+                    <input type="radio" class="switch-input" name="view" value="Freq" id="freq" checked>
+                    <label for="freq" class="switch-label switch-label-off">Frequency </label>
+                    <input type="radio" class="switch-input" name="view" value="Size" id="size">
+                    <label for="size" class="switch-label switch-label-on">Word Size</label>
+                    <span class="switch-selection"></span>
+                </div>
+                <div class="keyword-cloud" id="keywordCloud">
+                </div>
+            </div>
+            <!-- <div class="tool grow">
+                 <h2> Size word cloud</h2>
+                 <div class="keyword-cloud" id="keywordCloudSize">
+                 </div>
+             </div>-->
+            <div class="tool semantic">
+                <button type="button" class="getGroupLabels" id="groupLabels">
+                    <span>See Common Labels</span>
+                </button>
+                <div class="keyword-cloud" id="keywordCloudGroup">
+                </div>
+            </div>
+
+            <div class="switch switch-keywords tool semantic">
+                <input type="radio" class="switch-input" name="view2" value="NoKeys" id="nokeys" checked>
+                <label for="nokeys" class="switch-label switch-label-off">Hide all Keywords</label>
+                <input type="radio" class="switch-input" name="view2" value="Keys" id="displayKeywords">
+                <label for="displayKeywords" class="switch-label switch-label-on">Show all Keywords</label>
+
+                <span class="switch-selection"></span>
+            </div>
+
+
+            <div class="tool grow shrink">
+                <h2 class="get-color-samples">Mood board Color Samples</h2>
+                <ul id="colorSamples" class="color-samples">
+                </ul>
+            </div>
+            <div class="tool">
+                <button type="button" class="save-btn" id="save">
+                    <span class="fas fa-file-download"></span> Export Board
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="widgets">
+    <div class="ideal-image-container new_searched_element">
+        <a href="#wheel1" class="wheel-button">
+            <img class="search_results" alt="result" src=""/>
+        </a>
+        <ul id="wheel1" class="wheel">
+            <li class="item"><a href="#home" name="Delete" title="Delete">Delete</a></li>
+            <li class="item"><a href="#home" name="Front" title="Front">Front</a></li>
+            <li class="item"><a href="#home" name="Back" title="Back">Back</a></li>
+            <li class="item"><a href="#home" name="Crop" title="Crop">Crop</a></li>
+            <li class="item"><a href="#home" name="Resize" title="Resize">Resize</a></li>
+            <li class="item"><a href="#home" name="Color" title="Change Color">Color</a></li>
+            <input type="color" id="c" tabindex=-1 class="hidden">
+            <li class="item semantic-inspector"><a href="#home" name="Inspect" title="Inspect">Inspect</a></li>
+        </ul>
+    </div>
+</div>
+<div id="widgetPrimitive">
+    <div class="ideal-image-container new_searched_element">
+        <a href="#wheel1" class="wheel-button">
+            <img class="search_results" alt="result" src=""/>
+        </a>
+        <ul id="wheel" class="wheel">
+            <li class="item"><a href="#home" name="Delete" title="Delete">Delete</a></li>
+            <li class="item"><a href="#home" name="Front" title="Front">Front</a></li>
+            <li class="item"><a href="#home" name="Back" title="Back">Back</a></li>
+            <li class="item"><a href="#home" name="Resize" title="Resize">Resize</a></li>
+            <li class="item"><a href="#home" name="Color" title="Change Color">Color</a></li>
+            <input type="color" id="c1" tabindex=-1 class="hidden">
+            <li class="item"><a href="#home" name="Inspect" title="Inspect">Inspect</a></li>
+        </ul>
+    </div>
+</div>
+<div class="hud">
+    <h2>
+        <span class="closeParentInspect">×</span>
+        Keyword inspector
+    </h2>
+    <ul>
+    </ul>
+</div>
+<div class="toolbar" id="actions">
+    <!-- <h3>Toolbar:</h3> -->
+    <div class="btn-group">
+        <button type="button" class="btn" data-method="rotate" data-option="-45" title="Rotate Left">
+            <span class="fas fa-undo"></span>
+        </button>
+        <button type="button" class="btn" data-method="rotate" data-option="45" title="Rotate Right">
+            <span class="fas fa-redo"></span>
+        </button>
+        <button type="button" class="btn" data-method="scaleX" data-option="-1" title="Flip Horizontal">
+            <span class="fas fa-arrows-alt-h"></span>
+        </button>
+        <button type="button" class="btn" data-method="scaleY" data-option="-1" title="Flip Vertical">
+            <span class="fas fa-arrows-alt-v"></span>
+        </button>
+        <button type="button" class="btn " data-method="crop" title="Crop">
+            <span class="fa fa-check"></span>
+        </button>
+        <button type="button" class="btn " data-method="destroy" title="Destroy">
+            <span class="fas fa-ban"></span>
+        </button>
+    </div>
+</div>
+<div id="text-editor" class="textElement text-editor">
+    <h2>
+        Text editor
+    </h2>
+    <div>
+        <select name="font-family" id="font-family">
+            <option value="default" selected="selected">Pick a font</option>
+            <option value="sans-serif">Sans Serif</option>
+            <option value="serif">Serif</option>
+            <option value="monospace">Monospace</option>
+            <!--<option value="cursive"><span style="font-family: cursive">Cursive</span></option>
+            <option value="fantasy"><span style="font-family: fantasy">Fantasy</span></option>-->
+        </select>
+        <select name="font-size" id="font-size">
+            <option value="default" selected>Size</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+            <option value="80">80</option>
+            <option value="90">90</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+    <div>
+        <button id="font-italic" value="italic"><i>I</i></button>
+        <button id="font-bold" value="bold"><b>B</b></button>
+        <button id="font-regular" value="regular">R</button>
+
+        <img id="font-color" src="static/css/images/wheel.png" alt="color" width="20"/>
+
+        <button id="text-kill">Remove text</button>
+        <input type="color" id="ct" tabindex=-1 class="hidden">
+    </div>
+</div>
+
+
+<canvas id="groupCanvas"></canvas>
+
+
+<!-- let's load scripts -->
+<!-- libraries first -->
+<script src="static/js/jquery-3.3.1.js"></script>
+<script src="static/js/jquery-ui.min.js"></script>
+<script src="../static/js/html2canvas.min.js"></script>
+<script src="../static/js/FileSaver.min.js"></script>
+<script src="../static/js/tinysort.min.js"></script>
+<script src="static/js/jquery.wheelmenu.js"></script>
+<!-- <script src="static/js/masonry.pkgd.min.js"></script>-->
+<script src="static/js/cropper.js"></script>
+<script src="static/js/jquery-cropper.js"></script>
+<!-- our script last -->
+<script src="static/js/draganddrop.js"></script>
+<script src="static/js/upload.js"></script>
+<script src="static/js/jqcloud.js"></script>
+</body>
+</html>
