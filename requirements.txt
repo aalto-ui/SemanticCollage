@@ -1,6 +1,6 @@
 requests==2.22.0
 psycopg2==2.7.3.2
 numpy==1.16.5
-Pillow==5.4.1
+Pillow==9.0.0
 web.py==0.39
 Unirest==1.1.7
